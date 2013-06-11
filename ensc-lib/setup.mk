@@ -1,0 +1,1 @@
+COMPONENTS = io build-simple
