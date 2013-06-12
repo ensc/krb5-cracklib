@@ -1,0 +1,55 @@
+Requirements
+============
+
+* MIT Kerberos 1.9+ with pwqual plugin interface
+
+* cracklib; (optionally) version 2.9+ which provides FascistCheckUser()
+
+
+Installation
+============
+
+1. call 'make' with proper libdir and libexecdir settings; libdir
+   must either match this of krb5 installation (e.g. plugins are at
+   ${libdir}/krtb5/plugins), or there must be used an absolute path
+   to the cracklib plugin later.
+
+   It can me necessary to add '-I/usr/include/et' to CFLAGS because
+   krb5 expects <com_err.h> to be in include path which is not the
+   case e.g. in RHEL6
+
+2. install it with 'make install' by using same flags as above; you
+   can specify DESTDIR to copy files into a snapshot directory.  As a
+   result, two new files
+
+   /usr/lib64/krb5/plugins/pwqual/cracklib.so
+   /usr/libexec/krb5-checkpass
+
+   are created
+
+3. load module by adding
+
+   --------------
+   [plugins]
+           pwqual = {
+                  module = cracklib:pwqual/cracklib.so
+           }
+   --------------
+
+   to /etc/krb5.conf of the kadmin server and restart this server.
+
+4. test it by trying to set a simple password. 'kadmin.local' and kdc
+   logfile will contain the full error message:
+
+   # kadmin.local -q 'cpw test'
+   Enter password for principal "test...": abcABC123.
+   change_password: it is too simplistic/systematic while changing password...
+
+   Remote clients ('kpasswd', 'kadmin') will see only a generic
+   error message and logfile must be checked for the exact reason:
+
+   $ kpasswd test
+   Enter new password: abcABC123.
+   Password change rejected: Password not changed.
+   Unspecified password quality failure while trying to change password.
+

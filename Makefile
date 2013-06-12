@@ -64,6 +64,8 @@ LIBS_cracklib.so = \
 ALL_SOURCES = \
   $(SOURCES_krb5-checkpass) \
   $(SOURCES_cracklib.so) \
+  COPYING \
+  README \
   Makefile \
   ensc-lib/build-simple.mk
 
