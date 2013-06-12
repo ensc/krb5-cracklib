@@ -1,9 +1,9 @@
-include ensc-lib/build-simple.mk
-
 PACKAGE = krb5-cracklib
 VERSION = 0.1.4
 
 abs_top_srcdir = $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+
+include $(abs_top_srcdir)/ensc-lib/build-simple.mk
 
 krb5plugindir = ${libdir}/krb5/plugins/pwqual
 
@@ -15,6 +15,7 @@ LDFLAGS = -flto -fuse-linker-plugin -fvisibility=hidden -Wl,-as-needed
 
 KRB5_CFLAGS =
 KRB5_LIBS = -lkrb5
+VPATH += $(abs_top_srcdir)
 
 CRACKLIB_CFLAGS =
 CRACKLIB_LIBS = -lcrack
