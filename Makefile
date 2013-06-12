@@ -34,8 +34,11 @@ krb5plugin_MODULES = cracklib.so
 
 LDFLAGS_SHARED = -fPIC -shared
 
-CFLAGS_krb5-checkpass = \
+CPPFLAGS_FascistCheckUser = \
   $(call _find_symbol,FascistCheckUser,'\#include <crack.h>',$(CRACKLIB_CFLAGS)) \
+
+CFLAGS_krb5-checkpass = \
+  $(CPPFLAGS_FascistCheckUser) \
   $(COM_ERR_CFLAGS)
 
 LIBS_krb5-checkpass = \
