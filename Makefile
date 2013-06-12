@@ -75,6 +75,7 @@ ALL_SOURCES = \
   COPYING \
   README \
   Makefile \
+  contrib/krb5-cracklib.spec \
   ensc-lib/build-simple.mk
 
 all:	$(libexec_PROGRAMS) $(krb5plugin_MODULES)
