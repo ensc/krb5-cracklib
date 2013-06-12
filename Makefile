@@ -3,6 +3,8 @@ include ensc-lib/build-simple.mk
 PACKAGE = krb5-cracklib
 VERSION = 0.1.4
 
+abs_top_srcdir = $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
+
 krb5plugindir = ${libdir}/krb5/plugins/pwqual
 
 AM_CFLAGS = -std=gnu99 -Wall -W -Wno-unused-parameter
@@ -87,7 +89,7 @@ $(PACKAGE)-$(VERSION).tar.xz:	$(PACKAGE)-$(VERSION).tar
 	$(XZ) -c $< -c > $@
 
 $(PACKAGE)-$(VERSION).tar:	$(ALL_SOURCES)
-	$(TAR) cf $@ --transform='s|^|$(PACKAGE)-$(VERSION)/|' $(sort $^)
+	$(call _createtarball,$@,$(PACKAGE)-$(VERSION),$(sort $^))
 
 $(eval $(call _installrule,libexec))
 $(eval $(call _installrule,krb5plugin))

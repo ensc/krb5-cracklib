@@ -3,10 +3,15 @@ TAR = tar
 XZ = xz
 PKG_CONFIG = pkg-config
 
+TARFLAGS = --owner=root --group=root --mode=a+rX,go-w
+
 INSTALL = install -p
 INSTALL_DATA = $(INSTALL) -m 0644
 INSTALL_PROG = $(INSTALL) -m 0755
 
+abs_top_builddir = $(abspath ./)
+
+_createtarball = $(TAR) cf $1 $(TARFLAGS) $(if $2,-P --transform='s!^(($(abs_top_srcdir))|($(abs_top_builddir)/?))?!$2/!x') $3
 _buildflags = $(foreach k,CPP $1 LD, $(AM_$kFLAGS) $($kFLAGS) $($kFLAGS_$@))
 
 _pkg_get_cflags =	$(shell $(PKG_CONFIG) --cflags $1)
