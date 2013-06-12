@@ -13,9 +13,11 @@ AM_CPPFLAGS = -D_GNU_SOURCE
 CFLAGS = -O2 -flto
 LDFLAGS = -flto -fuse-linker-plugin -fvisibility=hidden -Wl,-as-needed
 
-KRB5_CFLAGS =
-KRB5_LIBS = -lkrb5
 VPATH += $(abs_top_srcdir)
+
+KRB5_CONFIG = krb5-config
+KRB5_CFLAGS = $(shell $(KRB5_CONFIG) --cflags krb5)
+KRB5_LIBS = $(shell $(KRB5_CONFIG) --libs krb5)
 
 CRACKLIB_CFLAGS =
 CRACKLIB_LIBS = -lcrack
