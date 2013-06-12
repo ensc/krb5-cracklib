@@ -1,5 +1,5 @@
 PACKAGE = krb5-cracklib
-VERSION = 0.1.4
+VERSION = 0.1.5
 
 abs_top_srcdir = $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 
