@@ -102,7 +102,7 @@ pwqual_cracklib_check(krb5_context context, krb5_pwqual_moddata data,
 		ok = false;
 		if (fd < 0)
 			write_errno(p_ctrl[1], "open(/dev/null)");
-		if (dup2(p_wr[0], 0) < 0)
+		else if (dup2(p_wr[0], 0) < 0)
 			write_errno(p_ctrl[1], "dup2(<wr>)");
 		else if (dup2(p_rd[1], 1) < 0)
 			write_errno(p_ctrl[1], "dup2(<rd>)");
